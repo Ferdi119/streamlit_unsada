@@ -129,11 +129,10 @@ if st.button("Melakukan prediksi"):
     unsafe_allow_html=True,
     )
 
-    st.sidebar.write('')
-    st.sidebar.write('')
-    st.sidebar.write('')
-
-    st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
+st.sidebar.write('')
     
     
 #menghilangkan burger dan made with streamlit
