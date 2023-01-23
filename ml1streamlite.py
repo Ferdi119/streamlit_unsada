@@ -18,13 +18,19 @@ def get_value(val,my_dict):
 
 app_mode = st.sidebar.selectbox('Select Page',['Home','Prediction']) #two pages
 
-if app_mode=='Home':
+if app_mode =='Home':
     st.title('LOAN PREDICTION :')  
     st.image('loan_image.jpg')
+    st.write('\n')
+    st.write('\n')
     st.markdown('Dataset :')
+    
     data=pd.read_csv('loan_dataset.csv')
     st.write(data.head())
-    st.markdown('Applicant Income VS Loan Amount ')
+    
+    st.write('\n')
+    st.write('\n')
+    st.markdown('Applicant Income (permohonan untuk peminjaman)VS Loan Amount (jumlah yang akan dipinjam)')
     st.bar_chart(data[['ApplicantIncome','LoanAmount']].head(20))
     
 elif app_mode == 'Prediction':
@@ -32,14 +38,19 @@ elif app_mode == 'Prediction':
 
     st.subheader('Sir/Mme , YOU need to fill all necessary informations in order    to get a reply to your loan request !')
     st.sidebar.header("Informations about the client :")
+    
     gender_dict = {"Male":1,"Female":2}
     feature_dict = {"No":1,"Yes":2}
     edu={'Graduate':1,'Not Graduate':2}
     prop={'Rural':1,'Urban':2,'Semiurban':3}
+    
     ApplicantIncome=st.sidebar.slider('ApplicantIncome',0,10000,0,)
     CoapplicantIncome=st.sidebar.slider('CoapplicantIncome',0,10000,0,)
     LoanAmount=st.sidebar.slider('LoanAmount in K$',9.0,700.0,200.0)
+    
     Loan_Amount_Term=st.sidebar.selectbox('Loan_Amount_Term',(12.0,36.0,60.0,84.0,120.0,180.0,240.0,300.0,360.0))
+    
+    st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True) #makehorizontalradio
     Credit_History=st.sidebar.radio('Credit_History',(0.0,1.0))
     Gender=st.sidebar.radio('Gender',tuple(gender_dict.keys()))
     Married=st.sidebar.radio('Married',tuple(feature_dict.keys()))
@@ -81,11 +92,15 @@ data1={
     'Property_Area':[Rural,Urban,Semiurban],
     }
 
-feature_list=[ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,get_value(Gender,gender_dict),get_fvalue(Married),data1['Dependents'][0],data1['Dependents'][1],data1['Dependents'][2],data1['Dependents'][3],get_value(Education,edu),get_fvalue(Self_Employed),data1['Property_Area'][0],data1['Property_Area'][1],data1['Property_Area'][2]]
+feature_list=[ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,
+                get_value(Gender,gender_dict),get_fvalue(Married),
+                data1['Dependents'][0],data1['Dependents'][1],data1['Dependents'][2],data1['Dependents'][3],
+                get_value(Education,edu),get_fvalue(Self_Employed),
+                data1['Property_Area'][0],data1['Property_Area'][1],data1['Property_Area'][2]]
 
 single_sample = np.array(feature_list).reshape(1,-1)
 
-if st.button("Predict"):
+if st.button("Melakukan prediksi"):
         file_ = open("6m-rain.gif", "rb")
         contents = file_.read()
         data_url = base64.b64encode(contents).decode("utf-8")
@@ -95,7 +110,6 @@ if st.button("Predict"):
         contents = file.read()
         data_url_no = base64.b64encode(contents).decode("utf-8")
         file.close()
-
 
         loaded_model = pickle.load(open('Random_Forest.sav', 'rb'))
         prediction = loaded_model.predict(single_sample)
@@ -114,3 +128,19 @@ if st.button("Predict"):
     f'<img src="data:image/gif;base64,{data_url}" alt="cat gif">',
     unsafe_allow_html=True,
     )
+
+    st.sidebar.write('')
+    st.sidebar.write('')
+    st.sidebar.write('')
+
+    st.sidebar.write('')
+    
+    
+#menghilangkan burger dan made with streamlit
+hide_streamlit_style = """
+ <style>
+  #MainMenu {visibility: hidden;}
+  footer {visibility: hidden;}
+ </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
