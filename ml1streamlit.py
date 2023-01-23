@@ -25,7 +25,7 @@ app_mode = st.sidebar.selectbox('MENU', ['Home', 'Prediksi']) #2Halaman
 # sidebar pemilihan halaman
 if app_mode == 'Home' :
     st.title('Aplikasi Prediksi Peminjaman')
-    st.image('assets/loan_image.jpg')
+    st.image('loan_image.jpg')
     st.write('\n')
     st.write('\n')
     st.markdown('Dataset :')
@@ -47,7 +47,7 @@ if app_mode == 'Home' :
     st.bar_chart(data[['ApplicantIncome','LoanAmount']].head(20))
     
 elif app_mode == 'Prediksi' :
-    st.image('assets/slider-short-3.jpg')
+    st.image('slider-short-3.jpg')
     st.subheader('Kamu perlu mengisi semua informasi yang diperlukan untuk mendapatkan balasan atas permintaan pinjaman Anda!')
     st.sidebar.subheader('')
     st.sidebar.subheader('Informasi Client :')
@@ -119,12 +119,12 @@ elif app_mode == 'Prediksi' :
     
     #memuat model Random Forest Classifier pada loaded_model, prediksinya 0 atau 1 dalam prediksi (dalam menentukan gagal atau sukses)
     if st.button('Klik untuk Prediksi') :
-        file_ = open("assets/6m-rain.gif", "rb")
+        file_ = open("6m-rain.gif", "rb")
         contents = file_.read()
         data_url = base64.b64encode(contents).decode("utf-8")
         file_.close()
         
-        file = open('assets/green-cola-no.gif', 'rb')
+        file = open('green-cola-no.gif', 'rb')
         contents = file.read()
         data_url_no = base64.b64encode(contents).decode('utf-8')
         file.close()
